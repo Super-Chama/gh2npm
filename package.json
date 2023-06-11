@@ -1,0 +1,16 @@
+{
+	"name": "gh2npm",
+	"version": "1.0.0",
+	"description": "Stream github repo as targz",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"author": "Chamara Abesinghe",
+	"license": "MIT",
+	"dependencies": {
+		"express": "^4.18.2",
+		"node-fetch": "^2.6.7",
+		"tar-transform": "1.0.0"
+	}
+}
