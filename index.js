@@ -44,7 +44,7 @@ app.get('/:author/:repo/:folder?', async (req, res) => {
 					}
 				}
 
-				const headers = this.util.headersWithNewName(entry.headers, file.replace(/^[^\/]*./, ''));
+				const headers = this.util.headersWithNewName(entry.headers, 'package/' + file.replace(/^[^\/]*./, ''));
 
 				this.push({ ...entry, headers });
 			},
