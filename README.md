@@ -9,5 +9,8 @@ Stream github repo as targz
 - http://localhost:3000/{author}/{repo}/{folder}?branch={branch}
 - http://localhost:3000/{author}/{repo}/{folder}?commit={commit}
 
-### Run server
+### Run server locally
 `npm start`
+
+### Or deploy to cloud
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/Super-Chama/gh2npm)
