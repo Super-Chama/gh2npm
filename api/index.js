@@ -16,8 +16,8 @@ app.get('/', (req, res) => {
   res.send('Hey this is my API running 🥳')
 })
 
-app.get('/api/:author/:repo/:folder?/:subFolder?', async (req, res) => {
-	const { author, repo, folder, subFolder } = req.params;
+app.get('/api/:author/:repo/:folder?/:subFolder?/:subSubFolder?', async (req, res) => {
+	const { author, repo, folder, subFolder, subSubFolder } = req.params;
 	const { commit, branch } = req.query;
 
 	const ref = commit || branch || 'main';
@@ -44,7 +44,8 @@ app.get('/api/:author/:repo/:folder?/:subFolder?', async (req, res) => {
 					const fileName = file.match(/([^\/]+)/g);
 					if (!fileName || fileName.length === 0
 						|| (folder && fileName[0] !== folder)
-						|| (subFolder && fileName[1] !== subFolder)) {
+						|| (subFolder && fileName[1] !== subFolder)
+						|| (subSubFolder && fileName[2] !== subSubFolder)) {
 						return this.pass(entry);
 					}
 				}
@@ -53,6 +54,9 @@ app.get('/api/:author/:repo/:folder?/:subFolder?', async (req, res) => {
 					folderFullName = folder;
 					if (subFolder) {
 						folderFullName += '/' + subFolder;
+						if (subSubFolder) {
+							folderFullName += '/' + subSubFolder;
+						}
 					}
 				}
 				if (folderFullName !== '') {
@@ -83,6 +87,7 @@ app.get('/api/:author/:repo/:folder?/:subFolder?', async (req, res) => {
 		res.status(500).send('An error occurred while processing the tarball.');
 	}
 });
+
 
 app.listen(3000, () => {
 	console.log('Server listening on port 3000');
