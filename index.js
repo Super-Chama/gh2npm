@@ -12,8 +12,8 @@ const app = express();
 // http://localhost:3000/{author}/{repo}/{folder}?branch={branch}
 // http://localhost:3000/{author}/{repo}/{folder}?commit={commit}
 
-app.get('/:author/:repo/:folder?', async (req, res) => {
-	const { author, repo, folder } = req.params;
+app.get('/:author/:repo/:folder?/:subFolder?', async (req, res) => {
+	const { author, repo, folder, subFolder } = req.params;
 	const { commit, branch } = req.query;
 
 	const ref = commit || branch || 'main';
@@ -30,23 +30,33 @@ app.get('/:author/:repo/:folder?', async (req, res) => {
 		const tgzStream = (await fetch(url)).body;
 
 		const extractStream = tt.extract({
-			gzip: true,
+			gzip: true
 		});
 
 		const transformStream = tt.transform({
 			onEntry(entry) {
 				const file = entry.headers.name.replace(/^[^\/]*./, ''); // strip the hash
-
 				if (folder) {
-					const fileName = file.match(/^[^\/]*/);
-					if (!fileName || fileName.length === 0 || fileName[0] !== folder) {
+					const fileName = file.match(/([^\/]+)/g);
+					if (!fileName || fileName.length === 0
+						|| (folder && fileName[0] !== folder)
+						|| (subFolder && fileName[1] !== subFolder)) {
 						return this.pass(entry);
 					}
 				}
-
-				const headers = this.util.headersWithNewName(entry.headers, 'package/' + file.replace(/^[^\/]*./, ''));
-
-				this.push({ ...entry, headers });
+				let folderFullName = '';
+				if (folder) {
+					folderFullName = folder;
+					if (subFolder) {
+						folderFullName += '/' + subFolder;
+					}
+				}
+				if (folderFullName !== '') {
+					const headers = this.util.headersWithNewName(entry.headers, file.replace(folderFullName, ''));
+					this.push({ ...entry, headers });
+				} else {
+					this.push(entry);
+				}
 			},
 		});
 
