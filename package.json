@@ -2,9 +2,9 @@
 	"name": "gh2npm",
 	"version": "1.0.0",
 	"description": "Stream github repo as targz",
-	"main": "index.js",
+	"main": "api/index.js",
 	"scripts": {
-		"start": "node index.js"
+		"start": "node api/index.js"
 	},
 	"author": "Chamara Abesinghe",
 	"license": "MIT",

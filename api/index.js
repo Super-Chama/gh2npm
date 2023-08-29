@@ -12,7 +12,11 @@ const app = express();
 // http://localhost:3000/{author}/{repo}/{folder}?branch={branch}
 // http://localhost:3000/{author}/{repo}/{folder}?commit={commit}
 
-app.get('/:author/:repo/:folder?/:subFolder?', async (req, res) => {
+app.get('/', (req, res) => {
+  res.send('Hey this is my API running 🥳')
+})
+
+app.get('/api/:author/:repo/:folder?/:subFolder?', async (req, res) => {
 	const { author, repo, folder, subFolder } = req.params;
 	const { commit, branch } = req.query;
 
