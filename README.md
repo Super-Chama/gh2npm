@@ -2,12 +2,15 @@
 Stream github repo as targz
 
 ### Valid URL
-- http://localhost:3000/{author}/{repo}
-- http://localhost:3000/{author}/{repo}/{folder}
-- http://localhost:3000/{author}/{repo}?branch={branch}
-- http://localhost:3000/{author}/{repo}?commit={commit}
-- http://localhost:3000/{author}/{repo}/{folder}?branch={branch}
-- http://localhost:3000/{author}/{repo}/{folder}?commit={commit}
+- https://gh2npm.vercel.app/api/{author}/{repo}
+- https://gh2npm.vercel.app/api/{author}/{repo}/{folder}
+- https://gh2npm.vercel.app/api/{author}/{repo}?branch={branch}
+- https://gh2npm.vercel.app/api/{author}/{repo}?commit={commit}
+- https://gh2npm.vercel.app/api/{author}/{repo}/{folder}?branch={branch}
+- https://gh2npm.vercel.app/api/{author}/{repo}/{folder}?commit={commit}
+
+### Example
+`npm install https://gh2npm.vercel.app/api/aquarius-wing/lexical-vue2/packages/lexical-vue2`
 
 ### Run server locally
 `npm start`
